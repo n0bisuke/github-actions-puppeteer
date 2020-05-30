@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Install
-        uses: ianwalter/puppeteer@3.0.0
+        uses: ianwalter/puppeteer@3.2.0
         with:
           args: yarn
       - name: RUN
