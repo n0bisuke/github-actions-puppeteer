@@ -1,16 +1,37 @@
-name: CI
+name: LINE notify
 
-on: push
+on:
+  push:
+    branches: [ master ]
+    # プッシュ時に動作する
 
 jobs:
   build:
+
+    # このジョブのために ubuntu サーバーを準備する
+    # まっさらなサーバーなので、以下で Node.js 自体の準備や npm install を行う
     runs-on: ubuntu-latest
+
+    # このジョブ自体をテストするためのテスト戦略 → 13.x で行う
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    # 以下が実際のステップ
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Install
-        uses: ianwalter/puppeteer@3.0.0
-        with:
-          args: yarn
-      - name: RUN
-        run: node app.js
+
+    # この例では、v2 を使用することにより、チェックアウトアクションの安定版を確実に使用するようにしています
+    - uses: actions/checkout@v2
+    # Node.js 13.x のセットアップ
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '13.x'
+    # package.json を参考にインストールがはじまる、この場合は axios がインストール    
+    - name: npm install command
+      run: npm i
+    # Node.js 自体の準備や npm install ができたので、いよいよ node action.js でプログラムを実行
+    # Secret の LINE_TOKEN 値 を action.js に渡している
+    # LINE Notify にメッセージが行く
+    - name: LINE Notify app.js
+      run: node app.js
