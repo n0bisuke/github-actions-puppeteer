@@ -1,5 +1,7 @@
 name: CI
+
 on: push
+
 jobs:
   installDependencies:
     name: Install Dependencies
@@ -20,4 +22,4 @@ jobs:
         args: npm test
     
     - name: RUN
-      run: 
+      run: node app.js
