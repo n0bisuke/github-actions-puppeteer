@@ -9,12 +9,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Install
-        uses: ianwalter/puppeteer@v2.0.0
+        uses: ianwalter/puppeteer@latest
         with:
           args: yarn
-      - name: Test
-        uses: ianwalter/puppeteer@v2.0.0
-        with:
-          args: yarn test
       - name: RUN
         run: node app.js
