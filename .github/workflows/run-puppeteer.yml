@@ -19,8 +19,7 @@ jobs:
       with:
         node-version: '14.x'
     - name: install command
-      with:
-          args: yarn
+      run: yarn install
 
     - name: RUN app.js
       run: node app.js
